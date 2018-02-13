@@ -1,22 +1,23 @@
-//lets start this server
-
-const express = require('express')
-const http = require('http')
-const bodyParser = require('body-parser')
+// Main starting point of the application
+const express = require('express');
+const http = require('http');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
-const router = require('./router')
-const mongoose = require('mongoose')
+const router = require('./router');
+const mongoose = require('mongoose');
 
-//Setting up the Database
-mongoose.connect('mongodb://localhost:auth/auth')
 
-//Setting up the application 
-app.use(morgan('combined')); //Logging framework, logs incoming requests
-app.use(bodyParser.json({ type:'*/*' })); // Parse incoming requests into JSON
+// DB Setup
+mongoose.connect('mongodb://localhost:auth/auth');
+
+// App Setup
+app.use(morgan('combined'));
+app.use(bodyParser.json({ type: '*/*' }));
 router(app);
-//Server Setup
-const port = process.env.PORT || 27017;
+
+// Server Setup
+const port = process.env.PORT || 3090;
 const server = http.createServer(app);
 server.listen(port);
-console.log('Server listening on',port)
+console.log('Server listening on:', port);
